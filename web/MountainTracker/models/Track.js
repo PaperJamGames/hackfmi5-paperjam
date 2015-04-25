@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var TrackSchema = new mongoose.Schema({
     title: String,
@@ -16,3 +16,4 @@ var TrackSchema = new mongoose.Schema({
 });
 
 mongoose.model('Track', TrackSchema);
+module.exports = TrackSchema;

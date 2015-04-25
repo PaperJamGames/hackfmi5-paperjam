@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var AudioSchema = new mongoose.Schema({
     _id: String,
@@ -6,3 +6,4 @@ var AudioSchema = new mongoose.Schema({
 });
 
 mongoose.model('Audio', AudioSchema);
+module.exports = AudioSchema;

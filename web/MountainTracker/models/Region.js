@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var RegionSchema = new mongoose.Schema({
     _id: String,
@@ -6,3 +6,4 @@ var RegionSchema = new mongoose.Schema({
 });
 
 mongoose.model('Region', RegionSchema);
+module.exports = RegionSchema;

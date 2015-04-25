@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var CheckpointSchema = new mongoose.Schema({
     _id: String,
@@ -10,3 +10,4 @@ var CheckpointSchema = new mongoose.Schema({
 });
 
 mongoose.model('Checkpoint', CheckpointSchema);
+module.exports = CheckpointSchema;

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var PictureSchema = new mongoose.Schema({
     _id: String,
@@ -7,3 +7,4 @@ var PictureSchema = new mongoose.Schema({
 });
 
 mongoose.model('Picture', PictureSchema);
+module.exports = PictureSchema;

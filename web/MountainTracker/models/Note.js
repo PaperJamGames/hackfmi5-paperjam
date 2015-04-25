@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var NoteSchema = new mongoose.Schema({
     text: String,
@@ -6,3 +6,4 @@ var NoteSchema = new mongoose.Schema({
 });
 
 mongoose.model('Note', NoteSchema);
+module.exports = NoteSchema;

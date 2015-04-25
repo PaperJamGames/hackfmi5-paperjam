@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('node-restful').mongoose;
 
 var UserSchema = new mongoose.Schema({
     _id: String,
@@ -17,3 +17,4 @@ UserSchema.methods.validPassword = function (password) {
 }
 
 mongoose.model('User', UserSchema);
+module.exports = UserSchema;

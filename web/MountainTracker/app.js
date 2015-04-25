@@ -7,16 +7,50 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
 var multer = require('multer');
-
-var mongoose = require('mongoose');
+var restful = require('node-restful'),
+    mongoose = restful.mongoose;
 mongoose.connect('mongodb://localhost/test');
-
-//import models
-require('./models/User');
-
-var User = mongoose.model('User');
+var docs = require("express-mongoose-docs");
 
 var app = express();
+
+var UserSchema = require('./models/User');
+var AudioShcema = require('./models/Audio');
+var VideoShcema = require('./models/Video');
+var CheckpointShcema = require('./models/Checkpoint');
+var NoteShcema = require('./models/Note');
+var RegionShcema = require('./models/Region');
+var TrackShcema = require('./models/Track');
+
+//import models
+var User = mongoose.model('User');
+var Audio = mongoose.model('Audio');
+var Video = mongoose.model('Video');
+var Checkpoint = mongoose.model('Checkpoint');
+var Note = mongoose.model('Note');
+var Region = mongoose.model('Region');
+var Track = mongoose.model('Track');
+
+//REST API:
+
+app.resource = restful.model('Audio', AudioShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
+
+app.resource = restful.model('Video', VideoShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/video');
+
+app.resource = restful.model('Note', NoteShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/note');
+
+app.resource = restful.model('Region', RegionShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/region');
+
+app.resource = restful.model('Track', TrackShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/track');
+
+///////////////////
+
+docs(app, mongoose); // 2nd param is optional
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
