@@ -5,16 +5,14 @@ var TrackSchema = new mongoose.Schema({
     author: String,
     description: String,
 
-    picture: String,
+    picture: { type: String, ref: 'Picture' },
 
     distance: Number,
     rating: Number,
     landmarkCount: Number,
     avg_duration: Number,
 
-    has_audio: Boolean,
-    has_photos: Boolean,
-    has_videos: Boolean
+    checkpoints: [{ type: String, ref: 'Picture' }]
 });
 
-module.exports = TrackSchema;
+mongoose.model('Track', TrackSchema);

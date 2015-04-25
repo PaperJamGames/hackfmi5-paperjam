@@ -5,4 +5,4 @@ var AudioSchema = new mongoose.Schema({
     name: String
 });
 
-module.exports = AudioSchema;
+mongoose.model('Audio', AudioSchema);

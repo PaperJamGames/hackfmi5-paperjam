@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var RegionSchema = new mongoose.Schema({
     _id: String,
-    regions: Array
+    regions: [{type:String}]
 });
 
-module.exports = RegionSchema;
+mongoose.model('Region', RegionSchema);

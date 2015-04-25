@@ -5,4 +5,4 @@ var NoteSchema = new mongoose.Schema({
     author: String
 });
 
-module.exports = NoteSchema
+mongoose.model('Note', NoteSchema);
