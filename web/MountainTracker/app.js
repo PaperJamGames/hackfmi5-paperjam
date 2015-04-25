@@ -57,8 +57,8 @@ app.resource = restful.model('picture', PictureSchema)
 app.resource = restful.model('region', RegionShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/region');
 
-app.resource = restful.model('track', TrackShcema)
-    .methods(['get', 'post', 'put', 'delete']).register(app, '/track');
+app.resource = restful.model('tracks', TrackShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/tracks');
 
 app.resource = restful.model('checkpoint', CheckpointShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/checkpoint');
@@ -108,7 +108,7 @@ var tracks = require('./routes/track');
 var uploads = require('./routes/upload');
 
 app.use('/', routes);
-app.use('/tracks', tracks);
+//app.use('/tracks', tracks);
 app.use('/users', users);
 app.use('/upload', uploads);
 

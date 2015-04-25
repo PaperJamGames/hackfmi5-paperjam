@@ -15,9 +15,12 @@
     "express-mongoose-docs": "~0.3.1",
     "express-session": "~1.11.1",
     "formidable": "^1.0.17",
+    "install": "^0.1.8",
     "mongoose": "~3.9.7",
     "morgan": "~1.5.1",
+    "node-django-admin": "0.0.9",
     "node-restful": "~0.1.18",
+    "npm": "^2.8.4",
     "serve-favicon": "~2.2.0",
     "xml2json": "^0.6.1"
   }

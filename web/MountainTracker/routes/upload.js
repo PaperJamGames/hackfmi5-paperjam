@@ -7,7 +7,7 @@ var mongoose = require('node-restful').mongoose;
 var Checkpoint = mongoose.model('Checkpoint');
 var Track = mongoose.model('Track');
 
-router.post('/', function(req, res, next) {
+router.post('/gpx', function(req, res, next) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.maxFieldsSize = 40 * 1024 * 1024;
@@ -28,6 +28,20 @@ router.post('/', function(req, res, next) {
             });
         }
     });
+});
+
+router.post('/image', function(req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.maxFieldsSize = 40 * 1024 * 1024;
+    form.uploadDir = path.resolve(__dirname, '../public/images');
+    form.parse(req, function(err, fields, files) {
+        console.log("");
+        var file = files[Object.keys(files)[0]];
+        fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name));
+        res.status(201).send();
+    });
+
 });
 
 var persistGPXData = function (gpx) {
