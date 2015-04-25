@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
+var multer = require('multer');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
@@ -28,6 +29,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+var multiPartFileOptions = {
+    dest: path.resolve('./uploads/'),
+    rename: function(fieldname, filename, req, res) {
+      file.fieldname = file.originalname + Date.now();
+    },
+    onFileUploadStart: function (file) {
+        console.log(file.originalname + ' is starting ...');
+    },
+    onFileUploadComplete: function (file) {
+        console.log(file.fieldname + ' uploaded to  ' + file.path);
+    }
+};
+
+app.use('/upload', multer(multiPartFileOptions));
 
 var mongoStoreOptions = {
     "host": "127.0.0.1", // required
@@ -65,10 +81,12 @@ app.post('/login', function(req, res){
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var tracks = require('./routes/track');
+var uploads = require('./routes/upload');
 
 app.use('/', routes);
 app.use('/tracks', tracks);
 app.use('/users', users);
+app.use('/upload', uploads);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
