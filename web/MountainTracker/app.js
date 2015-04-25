@@ -9,10 +9,6 @@ var passport = require('passport')
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var test = require('./routes/test');
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 
@@ -68,10 +64,12 @@ app.post('/login', function(req, res){
     });
 });
 
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var tracks = require('./routes/track');
+
 app.use('/', routes);
-
-app.use('/', test);
-
+app.use('/tracks', tracks);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
