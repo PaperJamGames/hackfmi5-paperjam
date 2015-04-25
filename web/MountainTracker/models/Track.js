@@ -12,7 +12,7 @@ var TrackSchema = new mongoose.Schema({
     landmarkCount: Number,
     avg_duration: Number,
 
-    checkpoints: [{ type: String, ref: 'Picture' }]
+    checkpoints: [{ type: String, ref: 'Checkpoint' }]
 });
 
 mongoose.model('Track', TrackSchema);

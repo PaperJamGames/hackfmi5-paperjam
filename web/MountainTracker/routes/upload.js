@@ -3,6 +3,9 @@ var path = require('path');
 var fs = require('fs');
 var formidable = require('formidable');
 var xml2json = require('xml2json');
+var mongoose = require('node-restful').mongoose;
+var Checkpoint = mongoose.model('Checkpoint');
+var Track = mongoose.model('Track');
 
 router.post('/', function(req, res, next) {
     var form = new formidable.IncomingForm();
@@ -18,13 +21,52 @@ router.post('/', function(req, res, next) {
                     res.status(500).end("Data is corrupt");
                 } else {
                     var jsonData = JSON.parse(xml2json.toJson(data.toString('utf-8')));
+                    persistGPXData(jsonData);
                     res.status(200).end('Upload successful.');
                 }
 
             });
         }
     });
-
 });
+
+var persistGPXData = function (gpx) {
+    gpx = gpx['gpx'];
+
+    if(!gpx){
+        return;
+    }
+    var author = gpx['creator'];
+    var trk = gpx['trk'];
+    if(!trk){
+        return;
+    }
+    var trackName = trk['name'];
+    trk = trk['trkseg'];
+
+    if(!trk){
+        return;
+    }
+    trk = trk['trkpt'];
+    if(!trk){
+        return;
+    }
+    var checkpoints = [];
+    trk.forEach(function (point) {
+        checkpoint = new Checkpoint();
+        var id = mongoose.Types.ObjectId();
+        checkpoint['_id'] = id;
+        checkpoint['data'] = point;
+        checkpoints.push(id);
+        var result = checkpoint.save();
+        console.log(result);
+    });
+
+    track = new Track();
+    track['checkpoints'] = checkpoints;
+    track['title'] = trackName;
+    track['author'] = author;
+    track.save();
+}
 
 module.exports = router;
