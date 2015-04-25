@@ -11,9 +11,6 @@ var restful = require('node-restful'),
 mongoose.connect('mongodb://localhost/mountain');
 var docs = require("express-mongoose-docs");
 
-var url = require("url")
-    , swagger = require("swagger-node-express");
-
 var app = express();
 
 var UserSchema = require('./models/User');
