@@ -1,7 +1,7 @@
 var mongoose = require('node-restful').mongoose;
 
 var AudioSchema = new mongoose.Schema({
-    name: 'string'
+    name: String
 });
 
 mongoose.model('Audio', AudioSchema);

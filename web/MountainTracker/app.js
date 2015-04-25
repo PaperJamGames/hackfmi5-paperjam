@@ -11,9 +11,13 @@ var restful = require('node-restful'),
 mongoose.connect('mongodb://localhost/mountain');
 var docs = require("express-mongoose-docs");
 
+var url = require("url")
+    , swagger = require("swagger-node-express");
+
 var app = express();
 
 var UserSchema = require('./models/User');
+var PictureSchema = require('./models/Picture');
 var AudioShcema = require('./models/Audio');
 var VideoShcema = require('./models/Video');
 var CheckpointShcema = require('./models/Checkpoint');
@@ -42,25 +46,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
 
-app.resource = restful.model('Video', VideoShcema)
+app.resource = restful.model('video', VideoShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/video');
 
-app.resource = restful.model('Note', NoteShcema)
-    .methods(['get', 'post', 'put', 'delete']).register(app, '/note');
+app.resource = restful.model('note', NoteShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/notes');
 
-app.resource = restful.model('Region', RegionShcema)
+app.resource = restful.model('picture', PictureSchema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/picture');
+
+app.resource = restful.model('region', RegionShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/region');
 
-app.resource = restful.model('Track', TrackShcema)
+app.resource = restful.model('track', TrackShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/track');
 
-var Resource = app.resource = restful.model('resource', mongoose.Schema({
-    title: 'string',
-    year: 'number'
-}))
-    .methods(['get', 'post', 'put', 'delete']);
-
-Resource.register(app, '/resources');
+app.resource = restful.model('checkpoint', CheckpointShcema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/checkpoint');
 
 docs(app, mongoose); // 2nd param is optional
 

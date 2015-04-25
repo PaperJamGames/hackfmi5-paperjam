@@ -1,8 +1,7 @@
 var mongoose = require('node-restful').mongoose;
 
 var PictureSchema = new mongoose.Schema({
-    _id: String,
-    date: Date,
+    date: String,
     name: String
 });
 

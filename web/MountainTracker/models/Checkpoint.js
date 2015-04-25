@@ -1,7 +1,6 @@
 var mongoose = require('node-restful').mongoose;
 
 var CheckpointSchema = new mongoose.Schema({
-    _id: String,
     title: String,
     pictures: [{ type: String, ref: 'Picture' }],
     audio_files: [{ type: String, ref: 'Audio' }],
