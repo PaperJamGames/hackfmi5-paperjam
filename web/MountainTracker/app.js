@@ -9,7 +9,7 @@ var MongoStore = require('connect-mongostore')(session);
 var multer = require('multer');
 var restful = require('node-restful'),
     mongoose = restful.mongoose;
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/mountain');
 var docs = require("express-mongoose-docs");
 
 var app = express();
@@ -31,9 +31,17 @@ var Note = mongoose.model('Note');
 var Region = mongoose.model('Region');
 var Track = mongoose.model('Track');
 
-//REST API:
 
-app.resource = restful.model('Audio', AudioShcema)
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+//REST API:
+app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
 
 app.resource = restful.model('Video', VideoShcema)
@@ -48,6 +56,14 @@ app.resource = restful.model('Region', RegionShcema)
 app.resource = restful.model('Track', TrackShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/track');
 
+var Resource = app.resource = restful.model('resource', mongoose.Schema({
+    title: 'string',
+    year: 'number'
+}))
+    .methods(['get', 'post', 'put', 'delete']);
+
+Resource.register(app, '/resources');
+
 ///////////////////
 
 docs(app, mongoose); // 2nd param is optional
@@ -55,14 +71,6 @@ docs(app, mongoose); // 2nd param is optional
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 var multiPartFileOptions = {
     dest: path.resolve('./uploads/'),
