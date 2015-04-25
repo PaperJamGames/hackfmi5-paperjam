@@ -27,6 +27,15 @@ HTML / CSS / JavaScript , Python, Django, Databases - SQL или NoSQL
 1. Да можеш да добавяш note в някоя точка на пътя например качваш снимка, добавяш sound recording примерно "Тука не тръгвайте по горната пътечка, а по долната"
 2. Идейка, интеграция с други тракващи програми
 
+Подкарване на Docker
+==================
+1. Свалете си docker от [https://master.dockerproject.com/](https://master.dockerproject.com/)
+2. Влезнете в директорията на docker и изпълнете `chown <your_user> docker`
+3. Преместете го `mv ./docker /usr/local/bin`
+4. Пуснете docker daemon-ът `docker -d &`
+5. Подсигурете се, че имате cgroups `service cgroups status`. Ако нямате (ubuntu & forks): `apt-get install cgroups-lite` 
+6. Готови сте за ползване.
+
 Помощни материали
 =================
 
