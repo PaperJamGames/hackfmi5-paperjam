@@ -11,6 +11,8 @@ var restful = require('node-restful'),
 mongoose.connect('mongodb://localhost/mountain');
 var docs = require("express-mongoose-docs");
 
+var admin = require('node-django-admin');
+
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +43,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+admin.config(app, mongoose, '/admin');
 
 app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
@@ -137,6 +141,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
