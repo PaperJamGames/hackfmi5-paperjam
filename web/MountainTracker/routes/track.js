@@ -17,6 +17,7 @@ router.get('/:trackId', function(req, res, next) {
             res.status(500).send(err);
         } else {
             var jsonData = JSON.parse(xml2json.toJson(data.toString('utf-8')));
+            var gpx = jsonData['gpx'];
             res.json(jsonData);
         }
     });
