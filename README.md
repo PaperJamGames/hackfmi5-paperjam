@@ -33,7 +33,8 @@ HTML / CSS / JavaScript , Python, Django, Databases - SQL или NoSQL
 2. Влезнете в директорията на docker и изпълнете `chown <your_user> docker`
 3. Преместете го `mv ./docker /usr/local/bin`
 4. Пуснете docker daemon-ът `docker -d &`
-5. Готови сте за ползване.
+5. Подсигурете се, че имате cgroups `service cgroups status`. Ако нямате (ubuntu & forks): `apt-get install cgroups-lite` 
+6. Готови сте за ползване.
 
 Помощни материали
 =================
