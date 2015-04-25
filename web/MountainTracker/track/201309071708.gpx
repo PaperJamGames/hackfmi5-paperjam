@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx creator="TrekTrak - http://www.pdjpdj.go-plus.net" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <trk>
+    <name>улица „Баба Вида“ 14</name>
+    <trkseg>
+      <trkpt lat="43.993027737203796" lon="22.884837689781094">
+        <ele>82.0</ele>
+        <time>2013-09-07T17:08:51.000+0300</time>
+      </trkpt>
+      <trkpt lat="43.992936860033645" lon="22.884890768982782">
+        <ele>76.0</ele>
+        <time>2013-09-07T17:09:01.000+0300</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
