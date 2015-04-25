@@ -44,8 +44,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-admin.config(app, mongoose, '/admin');
-
 app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
 
@@ -68,6 +66,9 @@ app.resource = restful.model('checkpoint', CheckpointShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/checkpoint');
 
 docs(app, mongoose); // 2nd param is optional
+
+admin.config(app, mongoose, '/admin');
+
 var mongoStoreOptions = {
     "host": "127.0.0.1", // required
     "port": 27017, // required

@@ -1,16 +1,15 @@
 extends layouts/default
-
 block content
-  - var action = base + '/' + path
+  - var action = '/' + path
   - action += doc.isNew ? '' : '/' + doc._id
+  - var method = doc.isNew ? 'post' : "put"
   - var id = doc.isNew ? '' : doc._id
-  
   h2= ( (id) ? "Edit " : "New " ) + ( (meta.name) ? meta.name : meta.model )
 
   #form
-    form.form-horizontal(method="post", action=action, enctype="multipart/form-data", role="form")
-      input(type="hidden", name="_csrf", value="#{csrf_token}")
-      input(type="hidden", name="_doc_id", value=id)
+    form.form-horizontal(method=method, action=action, role="form")
+      //input(type="hidden", name="_csrf", value="#{csrf_token}")
+      //input(type="hidden", name="_doc_id", value=id)
   
       each f in edit
         .form-group
@@ -27,7 +26,7 @@ block content
                   else
                     option(value=v)= v
             else
-              input.form-control(id=f, type=type, name=path+'['+f+']', value=doc[f], placeholder='Enter '+header)
+              input.form-control(id=f, type=type, name=f, value=doc[f], placeholder='Enter '+header)
         
       .form-group 
         .col-sm-2
@@ -37,8 +36,8 @@ block content
             &nbsp;
             a.btn(href='#{base}/#{path}', title="cancel") Cancel
   
-            if !doc.isNew
-              #del-btn
-                form(action=action+'/delete' method="post")
-                  button.btn.btn-danger(type='submit') Delete
+  if !doc.isNew
+    #del-btn(style="padding-right: 15px")
+      form(action=action method="delete")
+        button.btn.btn-danger(type='submit') Delete
           
