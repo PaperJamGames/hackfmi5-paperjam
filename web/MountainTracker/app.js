@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongostore')(session);
-var multer = require('multer');
 var restful = require('node-restful'),
     mongoose = restful.mongoose;
 mongoose.connect('mongodb://localhost/mountain');
@@ -40,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//REST API:
 app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
 
@@ -64,28 +62,11 @@ var Resource = app.resource = restful.model('resource', mongoose.Schema({
 
 Resource.register(app, '/resources');
 
-///////////////////
-
 docs(app, mongoose); // 2nd param is optional
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-var multiPartFileOptions = {
-    dest: path.resolve('./uploads/'),
-    rename: function(fieldname, filename, req, res) {
-      file.fieldname = file.originalname + Date.now();
-    },
-    onFileUploadStart: function (file) {
-        console.log(file.originalname + ' is starting ...');
-    },
-    onFileUploadComplete: function (file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-    }
-};
-
-app.use('/upload', multer(multiPartFileOptions));
 
 var mongoStoreOptions = {
     "host": "127.0.0.1", // required

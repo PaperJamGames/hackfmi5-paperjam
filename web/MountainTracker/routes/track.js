@@ -8,7 +8,7 @@ router.get('/all', function(req, res, next) {
     //list all track using
     //<name>test_tracking</name>
     var tracks = [];
-    fs.readdir('../track/', function (err, files) {
+    fs.readdir(path.resolve(__dirname, '../track/'), function (err, files) {
         files.forEach(function (file) {
             var trackId = file.substr(0, file.indexOf("."));
             tracks.push({trackId:trackId})
