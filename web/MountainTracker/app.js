@@ -12,6 +12,9 @@ mongoose.connect('mongodb://localhost/mountain');
 var docs = require("express-mongoose-docs");
 
 var app = express();
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 var UserSchema = require('./models/User');
 var PictureSchema = require('./models/Picture');
@@ -61,11 +64,6 @@ app.resource = restful.model('checkpoint', CheckpointShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/checkpoint');
 
 docs(app, mongoose); // 2nd param is optional
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 var mongoStoreOptions = {
     "host": "127.0.0.1", // required
     "port": 27017, // required
