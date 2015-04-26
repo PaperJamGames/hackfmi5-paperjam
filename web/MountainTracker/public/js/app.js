@@ -9,11 +9,11 @@ $( document ).ready(function() {
         draggable: true
     };
 
-    var Bulgaria = new google.maps.LatLng(41.61466951550686,23.53847655634091);
+    var Bulgaria = new google.maps.LatLng(42.67435978649672, 23.330433696309797);
 
     function initialize() {
         var mapOptions = {
-            zoom: 7,
+            zoom: 15,
             center: Bulgaria,
             mapTypeId:google.maps.MapTypeId.HYBRID
         };
@@ -23,7 +23,7 @@ $( document ).ready(function() {
         marker = new google.maps.Marker({
             map: map,
             draggable: true,
-            position: new google.maps.LatLng(41.61466951550686,23.53847655634091)
+            position: new google.maps.LatLng(42.67435978649672, 23.330433696309797)
         });
         google.maps.event.addListener(marker, 'position_changed', updateMarker);
     }
@@ -105,5 +105,7 @@ function update() {
 
 function updateMarker() {
     $("#checkpoint_lat").val(marker.getPosition()['k']);
+    $("#waypoint_lat").val(marker.getPosition()['k']);
     $("#checkpoint_lon").val(marker.getPosition()['D']);
+    $("#waypoint_lon").val(marker.getPosition()['D']);
 }

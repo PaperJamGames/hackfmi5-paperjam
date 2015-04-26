@@ -1,6 +1,7 @@
 var mongoose = require('node-restful').mongoose;
 
 var GPSSchema = new mongoose.Schema({
+    uuid:String,
     gpx: String,
     gpx_parsed: [{
         ele:Number,

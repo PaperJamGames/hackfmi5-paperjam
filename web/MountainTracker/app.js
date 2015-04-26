@@ -111,11 +111,13 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var tracks = require('./routes/track');
 var uploads = require('./routes/upload');
+var gps = require('./routes/gps');
 
 app.use('/', routes);
 //app.use('/tracks', tracks);
 app.use('/users', users);
 app.use('/upload', uploads);
+app.use('/gps', gps);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
