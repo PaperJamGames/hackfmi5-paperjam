@@ -22,6 +22,21 @@ router.post('/coord/:uuid', function(req, res, next) {
     delete data._id;
 
     GPS.findOne({uuid:id}, function (err, gps) {
+        var _id;
+        if (!gps) {
+            _id = mongoose.Types.ObjectId();
+        } else {
+            _id = gps['id'];
+        }
+
+        Track.update({"data": _id}, {title:id, data: _id}, {upsert: true}, function () {
+            GPS.update({uuid: id, _id:_id}, {$push: {gpx_parsed: coords}}, {upsert: true}, function (err, result) {
+                res.status(201).send();
+            });
+        });
+    });
+/*
+    GPS.findOne({uuid:id}, function (err, gps) {
         console.log(gps);
         var id;
         if(!gps){
@@ -34,7 +49,7 @@ router.post('/coord/:uuid', function(req, res, next) {
                 res.status(201).send();
             });
         });
-    });
+    });*/
 });
 
 module.exports = router;
