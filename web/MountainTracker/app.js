@@ -18,6 +18,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var server = require('http').Server(app);
+
 var UserSchema = require('./models/User');
 var PictureSchema = require('./models/Picture');
 var AudioShcema = require('./models/Audio');
@@ -45,6 +47,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Listen for Socket-IO events
+ */
+var io = require('socket.io')(server);
+var exposedSocket;
+
+io.on('connection', function(socket) {
+    console.log('A user connected');
+    exposedSocket = socket;
+    socket.emit('connection');
+});
+
+app.post('/gps/coord/:test', function(req, res, next) {
+    exposedSocket.emit('newData', req.body['lat'], req.body['lon']);
+    next();
+});
+
 
 app.resource = restful.model('audio', AudioShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/audio');
@@ -88,6 +108,10 @@ var mongoStoreOptions = {
 app.use(session({
     secret: '1234567890QWERTY', store: new MongoStore(mongoStoreOptions)
 }));
+
+app.get('/demo', function(req, res) {
+    res.status(200).render('demo', {});
+});
 
 app.post('/login', function(req, res){
     var username = req.body['username'];
@@ -150,4 +174,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+module.exports = {
+    app: app,
+    server: server
+};

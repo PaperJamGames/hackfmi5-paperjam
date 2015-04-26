@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+        title [DEMO] - Mountain Tracker
+        meta(name="viewport", content="user-scalable=no,width=device-width,initial-scale=1")
+        script(src='/js/jquery.min.js')
+        script(src='/js/skel.min.js')
+        script(src='/js/skel-layers.min.js')
+        script(src='/js/init.js')
+        script(src='/js/socket.io-1.3.5.js')
+        noscript
+            link(rel='stylesheet', href='css/skel.css')
+            link(rel='stylesheet', href='css/style.css')
+            link(rel='stylesheet', href='css/style-xlarge.css')
+        script(src='/js/io-shizzle.js')
+
+        body
+        .container
+            h1#head Waiting for connection
+            h2#lon Longitude:
+            h2#lat Latitude:
