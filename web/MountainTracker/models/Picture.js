@@ -3,7 +3,8 @@ var admin = require('node-django-admin');
 
 var PictureSchema = new mongoose.Schema({
     date: String,
-    name: String
+    name: String,
+    url: String
 });
 
 PictureSchema.statics = {

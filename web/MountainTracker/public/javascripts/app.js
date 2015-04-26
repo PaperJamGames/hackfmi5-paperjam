@@ -39,11 +39,11 @@ $( document ).ready(function() {
     $.get("tracks", function (tracks) {
 
         $.each(tracks, function (i, track) {
-            $("#trackList").append('<li><a href="#" id="' + track['_id'] + '"">' + track['title'] + '</a></li>');
+            $("#trackList").append('<li><a href="#" id="' + track['data'] + '">' + track['title'] + '</a></li>');
         });
 
         $("#trackList a").click(function () {
-            loadTrack($(this).attr('id'), true);
+            loadTrack($(this).attr('id'), false);
         });
     });
 
@@ -65,13 +65,13 @@ function loadTrack(trackId, use_markers) {
     });
 
     markers = [];
-    $.get("tracks/" + trackId + "?populate=checkpoints", function (response) {
-        var gpx_data = response['checkpoints'];
-
+    $.get("gps/?select=gpx_parsed&_id=" + trackId, function (response) {
+        var gpx_data = response[0]['gpx_parsed'];
+        console.log(response);
         $.each(gpx_data, function (i, gpx) {
-            var position = {"lat": gpx['data']['lat'], "lng": gpx['data']['lon']};
+            var position = {"lat": gpx['lat'], "lng": gpx['lon']};
             waypoints.push(position);
-
+            console.log(position);
             if(use_markers){
                 var marker = new google.maps.Marker({
                     map: map,

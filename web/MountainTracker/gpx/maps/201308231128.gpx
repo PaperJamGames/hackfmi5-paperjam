@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx creator="TrekTrak - http://www.pdjpdj.go-plus.net" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <trk>
+    <name>test_tracking</name>
+    <trkseg>
+      <trkpt lat="41.61466951550686" lon="23.53847655634091">
+        <ele>1631.0</ele>
+        <time>2013-08-23T11:28:25.000+0300</time>
+      </trkpt>
+      <trkpt lat="41.614655162258444" lon="23.538355493044712">
+        <ele>1612.0</ele>
+        <time>2013-08-23T11:28:51.000+0300</time>
+      </trkpt>
+      <trkpt lat="41.614718087716696" lon="23.538256009373384">
+        <ele>1609.0</ele>
+        <time>2013-08-23T11:29:04.000+0300</time>
+      </trkpt>
+      <trkpt lat="41.614782357609435" lon="23.53816003517816">
+        <ele>1612.0</ele>
+        <time>2013-08-23T11:29:12.000+0300</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

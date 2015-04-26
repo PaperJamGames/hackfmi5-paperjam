@@ -26,6 +26,7 @@ var CheckpointShcema = require('./models/Checkpoint');
 var NoteShcema = require('./models/Note');
 var RegionShcema = require('./models/Region');
 var TrackShcema = require('./models/Track');
+var GPSSchema = require('./models/GPS');
 
 //import models
 var User = mongoose.model('User');
@@ -35,6 +36,7 @@ var Checkpoint = mongoose.model('Checkpoint');
 var Note = mongoose.model('Note');
 var Region = mongoose.model('Region');
 var Track = mongoose.model('Track');
+var GPS = mongoose.model('GPS');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -59,11 +61,14 @@ app.resource = restful.model('picture', PictureSchema)
 app.resource = restful.model('region', RegionShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/region');
 
-app.resource = restful.model('tracks', TrackShcema)
-    .methods(['get', 'post', 'put', 'delete']).register(app, '/tracks');
+var tracks = app.resource = restful.model('tracks', TrackShcema)
+    .methods(['get','post', 'put', 'delete']).register(app, '/tracks');
 
-app.resource = restful.model('checkpoint', CheckpointShcema)
+restful.model('checkpoint', CheckpointShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/checkpoint');
+
+restful.model('gps', GPSSchema)
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/gps');
 
 docs(app, mongoose); // 2nd param is optional
 

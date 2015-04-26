@@ -12,7 +12,7 @@ var TrackSchema = new mongoose.Schema({
     rating: Number,
     landmarkCount: Number,
     avg_duration: Number,
-
+    data: {type:String, ref:"GPS"},
     checkpoints: [{ type: String, ref: 'Checkpoint' }]
 });
 

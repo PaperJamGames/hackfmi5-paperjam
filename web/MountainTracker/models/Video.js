@@ -2,7 +2,8 @@ var mongoose = require('node-restful').mongoose;
 var admin = require('node-django-admin');
 
 var VideoSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    url: String
 });
 
 VideoSchema.statics = {
