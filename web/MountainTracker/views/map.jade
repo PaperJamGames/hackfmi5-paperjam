@@ -1,0 +1,51 @@
+doctype html
+html
+   head
+      script(src='http://maps.googleapis.com/maps/api/js')
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+      script(src='javascripts/app.js')
+   body
+      // <div id="googleMap" style="width:500px;height:380px;"></div>
+      h4= "Add checkpoint"
+      form(action="upload/image" method="post" enctype="multipart/form-data")
+         label
+            | Title
+         input(type="text" name="title")
+         br
+         label
+            | Latitude
+         input(id = "checkpoint_lat" type="text" name="lat")
+         br
+         label
+            | Longtitude
+         input(id = "checkpoint_lon" type="text" name="lon")
+         br
+         label
+            | Note
+         input(type="text" name="note")
+         br
+         label
+            | Image
+         input(type="file" name="trackData")
+         br
+         input(type="submit" value="Submit")
+
+
+      ul#trackList
+      #map-canvas(style='width:500px;height:380px;')
+      form(action='resources', method='post')
+         input(type='text', name='title')
+         input(type='text', name='year')
+         input(type='submit', value='submit')
+      br
+      br
+      h4 Upload GPX path
+      form(action='upload/gpx', method='post', enctype='multipart/form-data')
+         input(type='file', name='trackData')
+         br
+         input(type='submit', value='Submit')
+      h4 Upload image
+      form(action='upload/image', method='post', enctype='multipart/form-data')
+         input(type='file', name='trackData')
+         br
+         input(type='submit', value='Submit')
