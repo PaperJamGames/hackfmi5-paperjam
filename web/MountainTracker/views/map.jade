@@ -6,45 +6,37 @@ html
         script(src='js/app.js')
         script(src='js/util.js')
     body
-        table
+        header#header
+            h1#alt Data mock-up
+            nav#nav
+                ul
+                    li: a(href='/demo') Demo
+                    li: a(href='/') Back
+        table(stlye='width=1024')
             tr
-                td
-                    h4= "Add waypoint"
+                td.col-xs-12
+                    h4 Add waypoint
                     form(action="/gps/coord/test" method="post" enctype="multipart/form-data")
-                        label
-                            | Latitude
+                        label Latitude
                         input(id = "waypoint_lat" type="text" name="lat")
-                        br
-                        label
-                            | Longtitude
+                        label Longtitude
                         input(id = "waypoint_lon" type="text" name="lon")
-                        br
-                        label
-                            | Name
+                        label Name
                         input(type="text" name="name")
                         br
                         input(type="submit" value="Add waypoint")
-                td
+                td.col-xs-12
                     h4= "Add checkpoint"
                     form(action="upload/image" method="post" enctype="multipart/form-data")
-                        label
-                            | Title
+                        label Title
                         input(type="text" name="title")
-                        br
-                        label
-                            | Latitude
+                        label Latitude
                         input(id = "checkpoint_lat" type="text" name="lat")
-                        br
-                        label
-                            | Longtitude
+                        label Longtitude
                         input(id = "checkpoint_lon" type="text" name="lon")
-                        br
-                        label
-                            | Note
+                        label Note
                         input(type="text" name="note")
-                        br
-                        label
-                            | Image
+                        label Image
                         input(type="file" name="trackData")
                         br
                         input(type="submit" value="Add checkpoint")
@@ -55,9 +47,3 @@ html
         input(type='file', name='trackData')
         br
         input(type='submit', value='Submit')
-    //
-    //h4 Upload image
-    //  form(action='upload/image', method='post', enctype='multipart/form-data')
-    //     input(type='file', name='trackData')
-    //     br
-    //     input(type='submit', value='Submit')
