@@ -1,0 +1,30 @@
+commit 6c56a1bbb9ae541a7656b6376fc73ddb43d8e6d3
+Merge: 9883330 a6044ed
+Author: Georgi Harizanov <gharizanov92@gmail.com>
+Date:   Sun Apr 26 15:28:09 2015 +0300
+
+    Merge branch 'master' of https://github.com/PaperJamTeam/hackfmi5-paperjam
+
+commit 9883330610d5de76e6783b490c50bf05a8382b34
+Author: Georgi Harizanov <gharizanov92@gmail.com>
+Date:   Sun Apr 26 15:28:04 2015 +0300
+
+    correct realtime GPS updates
+
+commit a6044edf16726fba865ba6472aaf1b80fd151dd8
+Author: Ivan Latunov <xswordsx@gmail.com>
+Date:   Sun Apr 26 15:17:16 2015 +0300
+
+    Add socket.IO to package.json
+
+commit 03b36cb137c72d3777d1a304bf6214c374d34c32
+Author: Ivan Latunov <xswordsx@gmail.com>
+Date:   Sun Apr 26 15:15:11 2015 +0300
+
+    Add Socket.IO
+
+commit 81f737255beef5736e4df7694d1c4b8b4a8e50b3
+Author: Georgi Harizanov <gharizanov92@gmail.com>
+Date:   Sun Apr 26 14:15:21 2015 +0300
+
+    Added initial realtime service for testing
