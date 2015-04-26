@@ -10,12 +10,30 @@ var Picture = mongoose.model('Picture');
 router.post('/coord/:uuid', function(req, res, next) {
     var id = req.params['uuid'];
     var coords = req.body;
+    delete coords['name'];
     //res.status(201).send();
     var data = new GPS({uuid:id, gpx_parsed:[coords]});
     //data['lon'] = coords['lon'];
     //data['lat'] = coords['lat'];
-    data.save(function () {
+/*    data.save(function () {
         res.status(201).send();
+    });*/
+    data = data.toObject();
+    delete data._id;
+
+    GPS.findOne({uuid:id}, function (err, gps) {
+        console.log(gps);
+        var id;
+        if(!gps){
+            id = new mongoose.Types.ObjectId();
+        } else {
+            id = gps['id'];
+        }
+        Track.update({"data":id},{data:id},{upsert:true}, function () {
+            GPS.update({uuid:id},{$push:{gpx_parsed:coords}},{upsert:true}, function (err, result) {
+                res.status(201).send();
+            });
+        });
     });
 });
 

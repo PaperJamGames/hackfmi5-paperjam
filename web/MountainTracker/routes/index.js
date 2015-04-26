@@ -18,4 +18,8 @@ router.get('/map', function(req, res, next) {
     res.render('map');
 });
 
+router.get('/demo', function(req, res, next) {
+    res.render('demo');
+});
+
 module.exports = router;
