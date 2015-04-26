@@ -2,6 +2,7 @@ var waypoints = [];
 var markers = [];
 var map;
 var polyLine;
+var marker;
 $( document ).ready(function() {
 
     var rendererOptions = {
@@ -11,7 +12,6 @@ $( document ).ready(function() {
     var Bulgaria = new google.maps.LatLng(41.61466951550686,23.53847655634091);
 
     function initialize() {
-
         var mapOptions = {
             zoom: 7,
             center: Bulgaria,
@@ -19,23 +19,15 @@ $( document ).ready(function() {
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
         google.maps.event.addDomListener(window, 'load', initialize);
-        /*new google.maps.Marker({
+
+        marker = new google.maps.Marker({
             map: map,
             draggable: true,
-            position: new google.maps.LatLng(43.993514445251314, 22.885951711070973)
-        });*/
+            position: new google.maps.LatLng(41.61466951550686,23.53847655634091)
+        });
+        google.maps.event.addListener(marker, 'position_changed', updateMarker);
     }
-/*
-    $.get("tracks/all", function (tracks) {
 
-        $.each(tracks, function (i, track) {
-            $("#trackList").append('<li><a href="#"">' + track['trackId'] + '</a></li>');
-        });
-
-        $("#trackList a").click(function () {
-            loadTrack($(this).text());
-        });
-    });*/
     $.get("tracks", function (tracks) {
 
         $.each(tracks, function (i, track) {
@@ -111,37 +103,7 @@ function update() {
     polyLine.setPath(waypoints);
 }
 
-/*
-function loadTrack(trackId) {
-    if(polyLine){
-        polyLine.setMap(null);
-    }
-    waypoints = [];
-    $.get("tracks/" + trackId, function (response) {
-        var gpx_data = response['gpx']['trk']['trkseg']['trkpt'];
-        console.log(gpx_data);
-
-        $.each(gpx_data, function (i, gpx) {
-            console.log(gpx);
-            waypoints.push({"lat": gpx['lat'], "lng": gpx['lon']});
-        });
-
-        var polyOptions = {
-            strokeColor: '#FF0000',
-            strokeOpacity: .5,
-            strokeWeight: 7,
-            map: map
-        };
-
-        polyLine = new google.maps.Polyline(polyOptions);
-        polyLine.setPath(waypoints);
-
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < waypoints.length; i++) {
-            bounds.extend(new google.maps.LatLng(waypoints[i]['lat'], waypoints[i]['lng']));
-        }
-        bounds.getCenter();
-
-        map.fitBounds(bounds);
-    });
-}*/
+function updateMarker() {
+    $("#checkpoint_lat").val(marker.getPosition()['k']);
+    $("#checkpoint_lon").val(marker.getPosition()['D']);
+}

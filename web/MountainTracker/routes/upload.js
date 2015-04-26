@@ -7,6 +7,7 @@ var mongoose = require('node-restful').mongoose;
 var Checkpoint = mongoose.model('Checkpoint');
 var Track = mongoose.model('Track');
 var GPS = mongoose.model('GPS');
+var Picture = mongoose.model('Picture');
 
 router.post('/gpx', function(req, res, next) {
     var form = new formidable.IncomingForm();
@@ -41,12 +42,36 @@ router.post('/image', function(req, res, next) {
     form.maxFieldsSize = 40 * 1024 * 1024;
     form.uploadDir = path.resolve(__dirname, '../public/images');
     form.parse(req, function(err, fields, files) {
-        console.log("");
+        var pictureID = mongoose.Types.ObjectId();
+        var title = fields['title'];
+        var lat = fields['lat'];
+        var lon = fields['lon'];
+        var ele = fields['ele'];
+        var time = fields['time'];
+        var note = fields['note'];
         var file = files[Object.keys(files)[0]];
+        var checkpoint = new Checkpoint();
+
+        checkpoint['data'] = {
+            "lat":lat,
+            "lon":lon,
+            "ele":ele,
+            "time":time
+        };
+
+        checkpoint['note'] = note;
+        checkpoint['pictures'] = [pictureID];
+
+        var picture = new Picture();
+        picture['_id'] = pictureID;
+        picture['url'] = path.resolve(__dirname, '../public/images') + file.name;
+
+        checkpoint.save();
+        picture.save();
+
         fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name));
         res.status(201).send();
     });
-
 });
 /*
 var persistGPXData = function (gpx) {

@@ -14,4 +14,8 @@ router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Login' });
 });
 
+router.get('/map', function(req, res, next) {
+    res.render('map');
+});
+
 module.exports = router;
