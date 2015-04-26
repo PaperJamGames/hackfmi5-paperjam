@@ -11,27 +11,30 @@ $(document).ready(function () {
     }
 
     $("form").each(function () {
-        $(this).submit(function (event) {
-            event.preventDefault();
+        //quick and dirty fix
+        if(!$(this).attr("enctype")){
+            $(this).submit(function (event) {
+                event.preventDefault();
 
-            var fields = $(this).serializeArray();
-            var data = {};
-            var method = $(this).attr("method");
-            var action = $(this).attr('action');
+                var fields = $(this).serializeArray();
+                var data = {};
+                var method = $(this).attr("method");
+                var action = $(this).attr('action');
 
-            fields.forEach(function (field) {
-                data["" + field['name']] = "" + field['value'];
+                fields.forEach(function (field) {
+                    data["" + field['name']] = "" + field['value'];
+                });
+
+                console.log(data);
+
+                $.ajax({
+                    url:action,
+                    type:method,
+                    data:data
+                }).done(function () {
+                    //window.location = url;
+                });
             });
-
-            console.log(data);
-
-            $.ajax({
-                url:action,
-                type:method,
-                data:data
-            }).done(function () {
-                //window.location = url;
-            });
-        });
+        }
     })
 });

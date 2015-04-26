@@ -42,6 +42,11 @@ router.post('/image', function(req, res, next) {
     form.maxFieldsSize = 40 * 1024 * 1024;
     form.uploadDir = path.resolve(__dirname, '../public/images');
     form.parse(req, function(err, fields, files) {
+        console.log("test");
+        if(err) {
+            res.status(500).send(err);
+            return;
+        }
         var pictureID = mongoose.Types.ObjectId();
         var title = fields['title'];
         var lat = fields['lat'];
@@ -69,8 +74,9 @@ router.post('/image', function(req, res, next) {
         checkpoint.save();
         picture.save();
 
-        fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name));
-        res.status(201).send();
+        fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name), function() {
+            res.status(201).send();
+        });
     });
 });
 /*

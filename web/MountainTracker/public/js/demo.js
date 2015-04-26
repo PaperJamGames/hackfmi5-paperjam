@@ -1,6 +1,6 @@
 var FMI = new google.maps.LatLng(42.67435978649672, 23.330433696309797);
 var socket = io();
-var waypoints = [FMI];
+var waypoints = [];
 var map;
 var polyLine;
 var marker;

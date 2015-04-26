@@ -31,8 +31,8 @@ router.post('/coord/:uuid', function(req, res, next) {
         });
     });
 });
-/*
-router.post('/note/:uuid', function(req, res, next) {
+
+router.post('/checkpoint/:uuid', function(req, res, next) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.maxFieldsSize = 40 * 1024 * 1024;
@@ -57,6 +57,7 @@ router.post('/note/:uuid', function(req, res, next) {
 
         checkpoint['note'] = note;
         checkpoint['pictures'] = [pictureID];
+        checkpoint['uuid'] = req.params['uuid'];
 
         var picture = new Picture();
         picture['_id'] = pictureID;
@@ -68,6 +69,6 @@ router.post('/note/:uuid', function(req, res, next) {
         fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name));
         res.status(201).send();
     });
-});*/
+});
 
 module.exports = router;
