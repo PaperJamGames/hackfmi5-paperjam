@@ -11,13 +11,8 @@ router.post('/coord/:uuid', function(req, res, next) {
     var id = req.params['uuid'];
     var coords = req.body;
     delete coords['name'];
-    //res.status(201).send();
     var data = new GPS({uuid:id, gpx_parsed:[coords]});
-    //data['lon'] = coords['lon'];
-    //data['lat'] = coords['lat'];
-/*    data.save(function () {
-        res.status(201).send();
-    });*/
+
     data = data.toObject();
     delete data._id;
 
@@ -35,21 +30,44 @@ router.post('/coord/:uuid', function(req, res, next) {
             });
         });
     });
-/*
-    GPS.findOne({uuid:id}, function (err, gps) {
-        console.log(gps);
-        var id;
-        if(!gps){
-            id = new mongoose.Types.ObjectId();
-        } else {
-            id = gps['id'];
-        }
-        Track.update({"data":id},{data:id},{upsert:true}, function () {
-            GPS.update({uuid:id},{$push:{gpx_parsed:coords}},{upsert:true}, function (err, result) {
-                res.status(201).send();
-            });
-        });
-    });*/
 });
+/*
+router.post('/note/:uuid', function(req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.maxFieldsSize = 40 * 1024 * 1024;
+    form.uploadDir = path.resolve(__dirname, '../public/images');
+    form.parse(req, function(err, fields, files) {
+        var pictureID = mongoose.Types.ObjectId();
+        var title = fields['title'];
+        var lat = fields['lat'];
+        var lon = fields['lon'];
+        var ele = fields['ele'];
+        var time = fields['time'];
+        var note = fields['note'];
+        var file = files[Object.keys(files)[0]];
+        var checkpoint = new Checkpoint();
+
+        checkpoint['data'] = {
+            "lat":lat,
+            "lon":lon,
+            "ele":ele,
+            "time":time
+        };
+
+        checkpoint['note'] = note;
+        checkpoint['pictures'] = [pictureID];
+
+        var picture = new Picture();
+        picture['_id'] = pictureID;
+        picture['url'] = path.resolve(__dirname, '../public/images') + file.name;
+
+        checkpoint.save();
+        picture.save();
+
+        fs.rename(file.path, path.resolve(__dirname, '../public/images', file.name));
+        res.status(201).send();
+    });
+});*/
 
 module.exports = router;
