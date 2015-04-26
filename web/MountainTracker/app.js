@@ -51,7 +51,7 @@ app.resource = restful.model('video', VideoShcema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/video');
 
 app.resource = restful.model('note', NoteShcema)
-    .methods(['get', 'post', 'put', 'delete']).register(app, '/notes');
+    .methods(['get', 'post', 'put', 'delete']).register(app, '/note');
 
 app.resource = restful.model('picture', PictureSchema)
     .methods(['get', 'post', 'put', 'delete']).register(app, '/picture');
